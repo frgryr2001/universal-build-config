@@ -1,17 +1,78 @@
-# iCondo Compiler - Universal Build Configuration
+# Compiler - Universal Build Configuration
 
-A unified plugin-based configuration system for modern JavaScript bundlers (Vite, Rspack, Rsbuild) with TypeScript support and comprehensive testing. **Now available on NPM!**
+A unified plugin-based configuration system for modern JavaScript bundlers (Vite, Rspack, Rsbuild) with TypeScript support and comprehensive testing.
 
 ## 🎯 Project Overview
 
-iCondo Compiler creates a consistent, type-safe, and extensible configuration system that allows developers to write bundler-agnostic code while leveraging the specific optimizations and features of each bundler.
+**Compiler** is a unified plugin-based configuration system that solves the complexity and fragmentation of modern JavaScript bundler configurations. Instead of learning different APIs for Vite, Rspack, and Rsbuild, developers can use a single, consistent interface across all bundlers.
+
+### The Problem We Solve
+
+**Manual Configuration Approach** suffers from complexity and fragmentation:
+
+#### 🔧 Manual Config (Traditional Way)
+
+```typescript
+// vite.config.ts - 50+ lines
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+
+export default defineConfig({
+  plugins: [react({ fastRefresh: true })],
+  base: '/',
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom']
+        }
+      }
+    }
+  },
+  server: { port: 3000, hot: true },
+  resolve: {
+    alias: { '@': resolve(__dirname, 'src') }
+  },
+  // ... more config
+});
+```
+
+**Problems with manual config:**
+
+- **Different APIs**: Each bundler has unique syntax
+- **Code Duplication**: Separate configs for each bundler
+- **Migration Pain**: Rewrite everything when switching bundlers
+- **Knowledge Overhead**: Learn multiple configuration systems
+
+### Our Solution
+
+**Package-Based Configuration** - Simple, unified, reusable:
+
+#### 📦 With Our Package (3 lines)
+
+```typescript
+import { composePlugins, withBase, withReact } from '@frgryr1/vite-config';
+
+export default composePlugins(withBase(), withReact());
+```
+
+**Benefits:**
+
+- **🔧 One API**: Works across Vite, Rspack, and Rsbuild
+- **⚡ 70% Less Code**: From 50+ lines to 3 lines
+- **📦 Easy Migration**: Change import, keep same config
+- **🛡️ Type Safety**: Full TypeScript IntelliSense
 
 ### Core Mission
 
-Solve configuration fragmentation across modern bundlers by providing:
-- **Unified API**: Write configuration once, use across multiple bundlers
-- **Type Safety**: Full TypeScript IntelliSense and compile-time validation
-- **Best Practices**: Built-in optimizations and sensible defaults
+Create a **bundler-agnostic development experience** where:
+
+- **Write Once, Use Everywhere**: Single configuration works across multiple bundlers
+- **Type Safety First**: Full TypeScript IntelliSense and compile-time validation
+- **Best Practices Built-in**: Production-ready optimizations and sensible defaults
 - **Easy Migration**: Switch bundlers without rewriting configuration
 
 ## 📦 Published Packages
@@ -72,38 +133,203 @@ Run in development mode:
 pnpm dev
 ```
 
-## 🏗️ Architecture
+## 📋 Plugin Reference
 
-### Monorepo Structure
+### `withBase` Plugin
 
-```bash
-icondo-compiler/
-├── packages/
-│   ├── core/                  # @frgryr1/compiler-core - Core utilities and types
-│   ├── vite-config/           # @frgryr1/vite-config
-│   ├── rsbuild-config/        # @frgryr1/rsbuild-config
-│   ├── rspack-config/         # @frgryr1/rspack-config
-│   ├── eslint-config/         # @repo/eslint-config (internal)
-│   └── typescript-config/     # @repo/typescript-config (internal)
-├── apps/                      # Example applications
-│   ├── vite-app/             # Vite demo application
-│   ├── rsbuild-app/          # Rsbuild demo application
-│   └── rspack-app/           # Rspack demo application
-└── scripts/                  # Publishing and utility scripts
+The foundation plugin that provides essential build configurations for all bundlers.
+
+#### Default Configuration
+
+| Option | Default Value | Description |
+|--------|---------------|-------------|
+| `entry` | `'./src/index.tsx'` | Application entry point |
+| `outputPath` | `'dist'` | Build output directory |
+| `publicPath` | `'/'` | Public asset path |
+| `mode` | `'development'` | Build mode (development/production) |
+| `sourceMap` | `true` | Enable source map generation |
+| `target` | `'web'` | Bundle target environment |
+
+#### Development Defaults
+
+```typescript
+{
+  sourceMap: true,
+  devtool: 'source-map',
+  optimization: {
+    minimize: false,
+    splitChunks: false
+  },
+  server: {
+    port: 3000,
+    hot: true
+  }
+}
 ```
 
-### Technology Stack
+#### Production Defaults
 
-- **Language**: TypeScript 5.5+ with strict mode
-- **Package Manager**: pnpm 9.x with workspace support
-- **Build System**: Turbo + rslib for fast, incremental builds
-- **Bundlers**: Vite 7.1.3, Rsbuild 1.5.1, Rspack 1.5.1
+```typescript
+{
+  sourceMap: false,
+  devtool: false,
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  }
+}
+```
 
-## 🚀 Features
+### `withReact` Plugin
 
-- ✅ **Multi-Bundler Support**: Supports Rspack, Vite, and Rsbuild
-- ✅ **Plugin Composition**: Easily combine multiple configuration plugins
-- ✅ **Shared Utilities**: Code reuse across bundlers
+Configures React support with Fast Refresh and JSX handling.
+
+#### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `fastRefresh` | `boolean` | `true` | Enable React Fast Refresh |
+| `jsxRuntime` | `'automatic' \| 'classic'` | `'automatic'` | JSX transform runtime |
+| `jsxImportSource` | `string` | `'react'` | JSX import source |
+
+#### React Configuration
+
+```typescript
+{
+  fastRefresh: true,
+  jsxRuntime: 'automatic',
+  plugins: [
+    // Bundler-specific React plugin
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve('./src')
+    }
+  }
+}
+```
+
+### `withPWA` Plugin (Vite only)
+
+Adds Progressive Web App capabilities using Workbox.
+
+#### PWA Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `registerType` | `'prompt' \| 'autoUpdate'` | `'prompt'` | Service worker registration strategy |
+| `workbox.globPatterns` | `string[]` | `['**/*.{js,css,html,ico,png,svg}']` | Files to precache |
+| `manifest` | `object` | See below | Web app manifest |
+
+#### Default PWA Manifest
+
+```typescript
+{
+  name: 'My App',
+  short_name: 'MyApp',
+  description: 'My Awesome App description',
+  theme_color: '#ffffff',
+  background_color: '#ffffff',
+  display: 'standalone',
+  icons: [
+    {
+      src: 'icons/icon-192x192.png',
+      sizes: '192x192',
+      type: 'image/png'
+    },
+    {
+      src: 'icons/icon-512x512.png',
+      sizes: '512x512',
+      type: 'image/png'
+    }
+  ]
+}
+```
+
+## 🔧 Configuration Examples
+
+### Minimal Setup
+
+```typescript
+import { composePlugins, withBase } from '@frgryr1/vite-config';
+
+export default composePlugins(
+  withBase() // Uses all defaults
+);
+```
+
+### Custom Development Setup
+
+```typescript
+import { composePlugins, withBase, withReact } from '@frgryr1/vite-config';
+
+export default composePlugins(
+  withBase({
+    entry: './src/main.tsx',
+    outputPath: 'build',
+    mode: 'development',
+    sourceMap: true
+  }),
+  withReact({
+    fastRefresh: true
+  })
+);
+```
+
+### Production Setup with PWA
+
+```typescript
+import { composePlugins, withBase, withReact, withPwa } from '@frgryr1/vite-config';
+
+export default composePlugins(
+  withBase({
+    mode: 'production',
+    sourceMap: false,
+    target: 'es2020'
+  }),
+  withReact(),
+  withPwa({
+    registerType: 'autoUpdate',
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}']
+    },
+    manifest: {
+      name: 'My Production App',
+      short_name: 'MyApp',
+      theme_color: '#2563eb'
+    }
+  })
+);
+```
+
+### Multi-Environment Configuration
+
+```typescript
+import { composePlugins, withBase, withReact } from '@frgryr1/vite-config';
+
+const isDev = process.env.NODE_ENV === 'development';
+
+export default composePlugins(
+  withBase({
+    mode: isDev ? 'development' : 'production',
+    sourceMap: isDev,
+    outputPath: isDev ? 'dev-dist' : 'dist'
+  }),
+  withReact({
+    fastRefresh: isDev
+  })
+);
+```
+
 - ✅ **TypeScript**: Full type safety and IntelliSense
 - ✅ **Modular Exports**: Separate imports for each bundler
 
@@ -115,16 +341,16 @@ Install the bundler-specific configuration package you need:
 
 ```bash
 # For Vite projects
-pnpm add @stageit-labs/vite-config
+pnpm add @frgryr1/vite-config
 
 # For Rsbuild projects
-pnpm add @stageit-labs/rsbuild-config
+pnpm add @frgryr1/rsbuild-config
 
 # For Rspack projects
-pnpm add @stageit-labs/rspack-config
+pnpm add @frgryr1/rspack-config
 
 # For shared utilities (optional)
-pnpm add @stageit-labs/core
+pnpm add @frgryr1/core
 ```
 
 ### Bundler Dependencies
@@ -157,16 +383,16 @@ Each bundler has its own package with a consistent API:
 
 ```typescript
 // For Vite
-import { composePlugins, withBase, withReact } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/vite-config";
 
 // For Rsbuild
-import { composePlugins, withBase, withReact } from "@stageit-labs/rsbuild-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rsbuild-config";
 
 // For Rspack
-import { composePlugins, withBase, withReact } from "@stageit-labs/rspack-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rspack-config";
 
 // Shared utilities (optional)
-import { createCommonAliases, getEnvVars } from "@stageit-labs/core";
+import { createCommonAliases, getEnvVars } from "@frgryr1/core";
 ```
 
 ### Simple Configuration Example
@@ -174,7 +400,7 @@ import { createCommonAliases, getEnvVars } from "@stageit-labs/core";
 ```typescript
 // vite.config.ts
 import { defineConfig } from "vite";
-import { composePlugins, withBase, withReact } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/vite-config";
 
 export default defineConfig(
   composePlugins(
@@ -261,7 +487,7 @@ withPwa({
 ```typescript
 // vite.config.ts
 import { defineConfig } from "vite";
-import { composePlugins, withBase, withReact, withPwa } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact, withPwa } from "@frgryr1/vite-config";
 
 export default defineConfig(
   composePlugins(
@@ -294,7 +520,7 @@ export default defineConfig(
 ```typescript
 // rsbuild.config.ts
 import { defineConfig } from "@rsbuild/core";
-import { composePlugins, withBase, withReact } from "@stageit-labs/rsbuild-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rsbuild-config";
 
 export default defineConfig(
   composePlugins(
@@ -330,7 +556,7 @@ export default defineConfig(
 
 ```typescript
 // rspack.config.ts
-import { composePlugins, withBase, withReact } from "@stageit-labs/rspack-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rspack-config";
 
 export default composePlugins(
   withBase({
@@ -359,7 +585,7 @@ export default composePlugins(
 ### Plugin Development Pattern
 
 ```typescript
-import type { ViteConfigPlugin, VitePluginContext } from "@stageit-labs/vite-config";
+import type { ViteConfigPlugin, VitePluginContext } from "@frgryr1/vite-config";
 
 const withCustomFeature = (options: CustomOptions = {}): ViteConfigPlugin => {
   return (config, context) => {
@@ -433,7 +659,7 @@ export default defineConfig({
 ```typescript
 // vite.config.ts
 import { defineConfig } from "vite";
-import { composePlugins, withBase, withReact } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/vite-config";
 
 export default defineConfig(
   composePlugins(
@@ -450,10 +676,10 @@ The unified API makes it easy to switch between bundlers:
 ```typescript
 // Switch from Vite to Rsbuild by changing the import
 // From:
-import { composePlugins, withBase, withReact } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/vite-config";
 
 // To:
-import { composePlugins, withBase, withReact } from "@stageit-labs/rsbuild-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rsbuild-config";
 
 // Configuration stays the same!
 export default defineConfig(
@@ -504,7 +730,7 @@ export default defineConfig(createConfig(process.env.NODE_ENV));
 ```typescript
 // vite.config.ts with PWA
 import { defineConfig } from "vite";
-import { composePlugins, withBase, withReact, withPwa } from "@stageit-labs/vite-config";
+import { composePlugins, withBase, withReact, withPwa } from "@frgryr1/vite-config";
 
 export default defineConfig(
   composePlugins(
@@ -539,7 +765,7 @@ export default defineConfig(
 ```typescript
 // rsbuild.config.ts with environments
 import { defineConfig } from "@rsbuild/core";
-import { composePlugins, withBase, withReact } from "@stageit-labs/rsbuild-config";
+import { composePlugins, withBase, withReact } from "@frgryr1/rsbuild-config";
 
 export default defineConfig(
   composePlugins(
@@ -568,63 +794,6 @@ export default defineConfig(
     })
   )
 );
-```
-
-## � Current Status
-
-### ✅ Completed Features
-
-- Core monorepo infrastructure with pnpm workspaces
-- TypeScript 5.5+ with strict mode compliance
-- Build system using Turbo + rslib for fast compilation
-- Unified plugin system across all bundlers
-- Base configuration plugins for all bundlers
-- React support plugins with Fast Refresh
-- Progressive Web App support for Vite
-- Type-safe configuration with full IntelliSense
-- Example applications for each bundler
-
-### 🚧 In Development
-
-- Enhanced base configurations with more optimization options
-- Additional CSS framework integrations
-- Advanced asset optimization plugins
-- Server-side rendering configurations
-- Comprehensive testing suite
-
-### 📋 Planned Features
-
-- VS Code extension for better development experience
-- CLI tools for project scaffolding and migration
-- Additional bundler support (e.g., Webpack, Rollup)
-- Plugin marketplace and documentation site
-- Performance monitoring and optimization tools
-
-## � Quality Metrics
-
-### Production Ready Status ✅
-
-- ✅ **115 Comprehensive Tests** with 100% pass rate
-- ✅ **TypeScript Strict Mode** compliance (zero errors)
-- ✅ **NPM Published** and publicly available
-- ✅ **Complete Type Definitions** for full IntelliSense
-- ✅ **Optimized Bundle Sizes** for minimal runtime overhead
-
-### Bundle Sizes
-- **Core**: 3.0 kB (1.1 kB gzipped)
-- **Vite Config**: 10.1 kB (2.5 kB gzipped)
-- **Rspack Config**: 8.2 kB (1.9 kB gzipped)
-- **Rsbuild Config**: 6.2 kB (1.7 kB gzipped)
-
-### Test Coverage
-```bash
-# Run comprehensive test suite
-pnpm test
-
-# Results: 115 tests across all packages
-# ✓ @frgryr1/vite-config: 56 tests
-# ✓ @frgryr1/rspack-config: 26 tests
-# ✓ @frgryr1/rsbuild-config: 33 tests
 ```
 
 ## �📄 Package Information
@@ -679,7 +848,7 @@ We welcome contributions! Please see our contributing guidelines:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd icondo-compiler
+cd universal-build-config
 
 # Install dependencies
 pnpm install
