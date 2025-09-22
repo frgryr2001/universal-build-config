@@ -1,6 +1,6 @@
-# iCondo Compiler
+# iCondo Compiler - Universal Build Configuration
 
-A TypeScript monorepo project that provides a unified plugin-based configuration system for multiple JavaScript bundlers (Rsbuild, Rspack, and Vite). The project follows a modular architecture with shared utilities and bundler-specific implementations.
+A unified plugin-based configuration system for modern JavaScript bundlers (Vite, Rspack, Rsbuild) with TypeScript support and comprehensive testing. **Now available on NPM!**
 
 ## 🎯 Project Overview
 
@@ -14,7 +14,41 @@ Solve configuration fragmentation across modern bundlers by providing:
 - **Best Practices**: Built-in optimizations and sensible defaults
 - **Easy Migration**: Switch bundlers without rewriting configuration
 
+## 📦 Published Packages
+
+All packages are now available on NPM under the `@frgryr1` namespace:
+
+| Package | Version | Description |
+|---------|---------|-------------|
+| [`@frgryr1/compiler-core`](https://npmjs.com/package/@frgryr1/compiler-core) | ![npm](https://img.shields.io/npm/v/@frgryr1/compiler-core) | Core utilities and types |
+| [`@frgryr1/vite-config`](https://npmjs.com/package/@frgryr1/vite-config) | ![npm](https://img.shields.io/npm/v/@frgryr1/vite-config) | Vite configuration system |
+| [`@frgryr1/rspack-config`](https://npmjs.com/package/@frgryr1/rspack-config) | ![npm](https://img.shields.io/npm/v/@frgryr1/rspack-config) | Rspack configuration system |
+| [`@frgryr1/rsbuild-config`](https://npmjs.com/package/@frgryr1/rsbuild-config) | ![npm](https://img.shields.io/npm/v/@frgryr1/rsbuild-config) | Rsbuild configuration system |
+
 ## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Install packages from NPM
+npm install @frgryr1/compiler-core @frgryr1/vite-config
+
+# Or for specific bundlers
+npm install @frgryr1/rspack-config
+npm install @frgryr1/rsbuild-config
+```
+
+### Basic Usage
+
+```typescript
+// vite.config.ts
+import { composePlugins, withBase, withReact } from '@frgryr1/vite-config';
+
+export default composePlugins(
+  withBase({ entry: './src/main.tsx' }),
+  withReact()
+);
+```
 
 ### Setup
 
@@ -42,20 +76,20 @@ pnpm dev
 
 ### Monorepo Structure
 
-```
+```bash
 icondo-compiler/
 ├── packages/
-│   ├── shared-config/          # @stageit-labs/core - Shared utilities and types
-│   ├── vite-config/           # @stageit-labs/vite-config
-│   ├── rsbuild-config/        # @stageit-labs/rsbuild-config
-│   ├── rspack-config/         # @stageit-labs/rspack-config
-│   ├── eslint-config/         # @repo/eslint-config
-│   └── typescript-config/     # @repo/typescript-config
+│   ├── core/                  # @frgryr1/compiler-core - Core utilities and types
+│   ├── vite-config/           # @frgryr1/vite-config
+│   ├── rsbuild-config/        # @frgryr1/rsbuild-config
+│   ├── rspack-config/         # @frgryr1/rspack-config
+│   ├── eslint-config/         # @repo/eslint-config (internal)
+│   └── typescript-config/     # @repo/typescript-config (internal)
 ├── apps/                      # Example applications
 │   ├── vite-app/             # Vite demo application
 │   ├── rsbuild-app/          # Rsbuild demo application
 │   └── rspack-app/           # Rspack demo application
-└── memory-bank/              # Project documentation
+└── scripts/                  # Publishing and utility scripts
 ```
 
 ### Technology Stack
@@ -566,7 +600,34 @@ export default defineConfig(
 - Plugin marketplace and documentation site
 - Performance monitoring and optimization tools
 
-## 📄 Package Information
+## � Quality Metrics
+
+### Production Ready Status ✅
+
+- ✅ **115 Comprehensive Tests** with 100% pass rate
+- ✅ **TypeScript Strict Mode** compliance (zero errors)
+- ✅ **NPM Published** and publicly available
+- ✅ **Complete Type Definitions** for full IntelliSense
+- ✅ **Optimized Bundle Sizes** for minimal runtime overhead
+
+### Bundle Sizes
+- **Core**: 3.0 kB (1.1 kB gzipped)
+- **Vite Config**: 10.1 kB (2.5 kB gzipped)
+- **Rspack Config**: 8.2 kB (1.9 kB gzipped)
+- **Rsbuild Config**: 6.2 kB (1.7 kB gzipped)
+
+### Test Coverage
+```bash
+# Run comprehensive test suite
+pnpm test
+
+# Results: 115 tests across all packages
+# ✓ @frgryr1/vite-config: 56 tests
+# ✓ @frgryr1/rspack-config: 26 tests
+# ✓ @frgryr1/rsbuild-config: 33 tests
+```
+
+## �📄 Package Information
 
 ### Current Versions
 
@@ -575,16 +636,32 @@ export default defineConfig(
 - **Rsbuild**: ^1.5.1
 - **Rspack**: ^1.5.1
 - **pnpm**: 9.x
-- **Node.js**: 20.19+ or 22.12+
+- **Node.js**: 18+
 
 ### Package Namespace
 
-All packages use the `@stageit-labs/` namespace:
+All packages are published under the `@frgryr1/` namespace:
 
-- `@stageit-labs/core` - Shared utilities and types
-- `@stageit-labs/vite-config` - Vite-specific configuration
-- `@stageit-labs/rsbuild-config` - Rsbuild-specific configuration
-- `@stageit-labs/rspack-config` - Rspack-specific configuration
+- `@frgryr1/compiler-core` - Core utilities and types
+- `@frgryr1/vite-config` - Vite-specific configuration
+- `@frgryr1/rsbuild-config` - Rsbuild-specific configuration
+- `@frgryr1/rspack-config` - Rspack-specific configuration
+
+## 📚 Documentation
+
+- **[📖 NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md)** - Complete publishing process documentation
+- **[🔧 API Reference](./packages/core/README.md)** - Core API documentation
+- **[⚡ Vite Guide](./packages/vite-config/README.md)** - Vite-specific documentation
+- **[📦 Rspack Guide](./packages/rspack-config/README.md)** - Rspack-specific documentation
+- **[🚀 Rsbuild Guide](./packages/rsbuild-config/README.md)** - Rsbuild-specific documentation
+
+## 🔗 NPM Links
+
+- **NPM Profile**: [npmjs.com/~frgryr1](https://www.npmjs.com/~frgryr1)
+- **Core Package**: [npmjs.com/package/@frgryr1/compiler-core](https://www.npmjs.com/package/@frgryr1/compiler-core)
+- **Vite Config**: [npmjs.com/package/@frgryr1/vite-config](https://www.npmjs.com/package/@frgryr1/vite-config)
+- **Rspack Config**: [npmjs.com/package/@frgryr1/rspack-config](https://www.npmjs.com/package/@frgryr1/rspack-config)
+- **Rsbuild Config**: [npmjs.com/package/@frgryr1/rsbuild-config](https://www.npmjs.com/package/@frgryr1/rsbuild-config)
 
 ## 🤝 Contributing
 
