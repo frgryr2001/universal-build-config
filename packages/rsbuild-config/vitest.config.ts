@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@repo/test-utils': new URL('../test-utils/src', import.meta.url).pathname,
-      '@stageit-labs/core': new URL('../core/src', import.meta.url).pathname,
+      '@frgryr1/compiler-core': new URL('../core/src', import.meta.url).pathname,
     }
   }
 })

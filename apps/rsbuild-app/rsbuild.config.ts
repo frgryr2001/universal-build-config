@@ -3,7 +3,7 @@ import {
   composePlugins,
   withBase,
   withReact,
-} from "@stageit-labs/rsbuild-config";
+} from "@frgryr1/rsbuild-config";
 export default defineConfig(
   composePlugins(
     withBase({

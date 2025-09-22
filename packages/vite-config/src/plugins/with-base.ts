@@ -1,4 +1,4 @@
-import { WithBaseOptions, COMMON_EXTENSIONS, createCommonAliases } from "@stageit-labs/core";
+import { WithBaseOptions, COMMON_EXTENSIONS, createCommonAliases } from "@frgryr1/compiler-core";
 import {
   ViteConfiguration,
   VitePluginContext,

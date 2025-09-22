@@ -1,6 +1,19 @@
 {
-  "name": "@stageit-labs/rspack-config",
-  "version": "0.0.0",
+  "name": "@frgryr1/rspack-config",
+  "version": "1.0.0",
+  "description": "Unified plugin-based configuration system for Rspack bundler",
+  "keywords": ["rspack", "webpack", "configuration", "plugin", "react", "bundler"],
+  "author": "frgryr1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frgryr2001/universal-build-config.git",
+    "directory": "packages/rspack-config"
+  },
+  "homepage": "https://github.com/frgryr2001/universal-build-config#readme",
+  "bugs": {
+    "url": "https://github.com/frgryr2001/universal-build-config/issues"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -22,7 +35,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@stageit-labs/core": "workspace:*"
+    "@frgryr1/compiler-core": "^1.0.1"
   },
   "peerDependencies": {
     "@rspack/core": ">=1.0.0",

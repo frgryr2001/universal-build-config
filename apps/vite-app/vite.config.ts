@@ -1,5 +1,5 @@
     import {defineConfig} from 'vite'
-    import {composePlugins, withBase, withReact, withPwa} from "@stageit-labs/vite-config";
+    import {composePlugins, withBase, withReact, withPwa} from "@frgryr1/vite-config";
 
     export default defineConfig(composePlugins(
     withBase(),

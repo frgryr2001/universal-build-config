@@ -1,4 +1,4 @@
-import type { WithBaseOptions, WithReactOptions } from '@stageit-labs/core';
+import type { WithBaseOptions, WithReactOptions } from '@frgryr1/compiler-core';
 
 /**
  * Test helper to create mock plugin contexts

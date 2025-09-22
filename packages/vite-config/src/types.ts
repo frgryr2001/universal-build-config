@@ -3,7 +3,7 @@ import {
   BasePluginContext,
   BaseConfigPlugin,
   BasePluginComposer,
-} from "@stageit-labs/core";
+} from "@frgryr1/compiler-core";
 
 // Use Vite's official UserConfig type as the base configuration
 export type ViteConfiguration = UserConfig;

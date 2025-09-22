@@ -1,6 +1,19 @@
 {
-  "name": "@stageit-labs/core",
-  "version": "0.0.0",
+  "name": "@frgryr1/compiler-core",
+  "version": "1.0.1",
+  "description": "Core utilities and types for the iCondo Compiler plugin system",
+  "keywords": ["vite", "rspack", "rsbuild", "bundler", "configuration", "plugin"],
+  "author": "frgryr1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frgryr2001/universal-build-config.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/frgryr2001/universal-build-config#readme",
+  "bugs": {
+    "url": "https://github.com/frgryr2001/universal-build-config/issues"
+  },
   "type": "module",
   "exports": {
     ".": {

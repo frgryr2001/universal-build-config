@@ -1,4 +1,4 @@
-import { COMMON_EXTENSIONS, WithReactOptions } from "@stageit-labs/core";
+import { COMMON_EXTENSIONS, WithReactOptions } from "@frgryr1/compiler-core";
 import {
   ViteConfiguration,
   VitePluginContext,

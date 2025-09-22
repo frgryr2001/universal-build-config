@@ -1,6 +1,19 @@
 {
-  "name": "@stageit-labs/vite-config",
-  "version": "0.0.0",
+  "name": "@frgryr1/vite-config",
+  "version": "1.0.0",
+  "description": "Unified plugin-based configuration system for Vite bundler",
+  "keywords": ["vite", "configuration", "plugin", "react", "pwa", "bundler"],
+  "author": "frgryr1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frgryr2001/universal-build-config.git",
+    "directory": "packages/vite-config"
+  },
+  "homepage": "https://github.com/frgryr2001/universal-build-config#readme",
+  "bugs": {
+    "url": "https://github.com/frgryr2001/universal-build-config/issues"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -22,7 +35,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@stageit-labs/core": "workspace:*"
+    "@frgryr1/compiler-core": "^1.0.1"
   },
   "peerDependencies": {
     "vite": ">=7.0.0",

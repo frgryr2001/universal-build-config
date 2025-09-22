@@ -1,4 +1,4 @@
-import { WithReactOptions } from "@stageit-labs/core";
+import { WithReactOptions } from "@frgryr1/compiler-core";
 import {
   RspackConfiguration,
   RspackPluginContext,

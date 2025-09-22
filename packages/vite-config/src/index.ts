@@ -10,4 +10,4 @@ export type {
   WithReactOptions,
   WithSassOptions,
   WithEnvOptions,
-} from "@stageit-labs/core";
+} from "@frgryr1/compiler-core";

@@ -1,4 +1,4 @@
-import { WithBaseOptions, createCommonAliases } from "@stageit-labs/core";
+import { WithBaseOptions, createCommonAliases } from "@frgryr1/compiler-core";
 import {
   RsbuildConfiguration,
   RsbuildPluginContext,

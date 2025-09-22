@@ -12,7 +12,7 @@
     "dev": "rslib build --watch"
   },
   "dependencies": {
-    "@stageit-labs/core": "workspace:*"
+    "@frgryr1/compiler-core": "workspace:*"
   },
   "devDependencies": {
     "@rslib/core": "^0.12.4",

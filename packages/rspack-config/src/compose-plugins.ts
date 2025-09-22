@@ -1,4 +1,4 @@
-import { createComposePlugins } from "@stageit-labs/core";
+import { createComposePlugins } from "@frgryr1/compiler-core";
 import {
   RspackConfiguration,
   RspackPluginContext,

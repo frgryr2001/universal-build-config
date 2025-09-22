@@ -1,5 +1,5 @@
 import {defineConfig} from "@rspack/cli";
-import {composePlugins, withBase, withReact} from "@stageit-labs/rspack-config";
+import {composePlugins, withBase, withReact} from "@frgryr1/rspack-config";
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from "node:url";
 import {rspack} from "@rslib/core";
