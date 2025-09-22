@@ -9,4 +9,4 @@ export type {
   WithReactOptions,
   WithSassOptions,
   WithEnvOptions,
-} from "@stageit-labs/shared-config";
+} from "@stageit-labs/core";

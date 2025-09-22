@@ -1,4 +1,4 @@
-import { WithBaseOptions, COMMON_EXTENSIONS } from "@stageit-labs/shared-config";
+import { WithBaseOptions, COMMON_EXTENSIONS } from "@stageit-labs/core";
 import {
   RspackConfiguration,
   RspackPluginContext,

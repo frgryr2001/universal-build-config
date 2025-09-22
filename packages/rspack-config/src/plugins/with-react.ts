@@ -1,4 +1,4 @@
-import { WithReactOptions } from "@stageit-labs/shared-config";
+import { WithReactOptions } from "@stageit-labs/core";
 import {
   RspackConfiguration,
   RspackPluginContext,

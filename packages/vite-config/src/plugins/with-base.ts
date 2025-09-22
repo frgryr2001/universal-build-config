@@ -1,4 +1,4 @@
-import { WithBaseOptions, COMMON_EXTENSIONS, createCommonAliases } from "@stageit-labs/shared-config";
+import { WithBaseOptions, COMMON_EXTENSIONS, createCommonAliases } from "@stageit-labs/core";
 import {
   ViteConfiguration,
   VitePluginContext,

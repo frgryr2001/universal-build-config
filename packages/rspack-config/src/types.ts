@@ -3,7 +3,7 @@ import {
   BasePluginContext,
   BaseConfigPlugin,
   BasePluginComposer,
-} from "@stageit-labs/shared-config";
+} from "@stageit-labs/core";
 
 // Use Rspack's official Configuration type as the base configuration
 export type RspackConfiguration = Configuration;

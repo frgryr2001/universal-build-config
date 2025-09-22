@@ -1,5 +1,5 @@
 {
-  "name": "@stageit-labs/shared-config",
+  "name": "@stageit-labs/core",
   "version": "0.0.0",
   "type": "module",
   "exports": {

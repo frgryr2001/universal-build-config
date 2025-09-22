@@ -1,4 +1,4 @@
-import { createComposePlugins } from "@stageit-labs/shared-config";
+import { createComposePlugins } from "@stageit-labs/core";
 import {
   RspackConfiguration,
   RspackPluginContext,

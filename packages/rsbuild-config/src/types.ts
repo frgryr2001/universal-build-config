@@ -3,7 +3,7 @@ import {
   BasePluginContext,
   BaseConfigPlugin,
   BasePluginComposer,
-} from "@stageit-labs/shared-config";
+} from "@stageit-labs/core";
 
 // Use Rsbuild's official RsbuildConfig type as the base configuration
 export type RsbuildConfiguration = RsbuildConfig;

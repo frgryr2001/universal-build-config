@@ -1,4 +1,4 @@
-import { WithBaseOptions, createCommonAliases } from "@stageit-labs/shared-config";
+import { WithBaseOptions, createCommonAliases } from "@stageit-labs/core";
 import {
   RsbuildConfiguration,
   RsbuildPluginContext,
