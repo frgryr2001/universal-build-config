@@ -1,0 +1,46 @@
+{
+  "name": "@stageit-labs/vite-config",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch"
+  },
+  "dependencies": {
+    "@stageit-labs/shared-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "vite": ">=7.0.0",
+    "@vitejs/plugin-react": ">=4.0.0",
+    "@vitejs/plugin-react-swc": ">=4.0.0",
+    "vite-plugin-pwa": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "@vitejs/plugin-react": {
+      "optional": true
+    },
+    "@vitejs/plugin-react-swc": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.0.5",
+    "@vitejs/plugin-react": "^4.3.2",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.5.4"
+  }
+}

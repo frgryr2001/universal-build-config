@@ -1,0 +1,42 @@
+{
+  "name": "@stageit-labs/rsbuild-config",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch"
+  },
+  "dependencies": {
+    "@stageit-labs/shared-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "@rsbuild/core": ">=1.0.0",
+    "@rsbuild/plugin-react": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@rsbuild/core": {
+      "optional": true
+    },
+    "@rsbuild/plugin-react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.0.5",
+    "@rsbuild/core": "^1.0.17",
+    "@rsbuild/plugin-react": "^1.4.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.5.4"
+  }
+}
